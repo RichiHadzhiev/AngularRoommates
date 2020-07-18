@@ -1,0 +1,81 @@
+<h3>Activities</h3>
+<!--TODO: show only if we have activities in our room, if not - shot message-->
+<div class="row">
+  <div class="col-6" *ngIf="dataSource != null && dataSource.length > 0">
+    <mat-card class="bottom-spaced-card accent-border">
+      <mat-card-header>
+        <div mat-card-avatar>
+          <mat-icon matListIcon color="accent">format_list_bulleted</mat-icon>
+        </div>
+        <mat-card-title>To Do</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <table mat-table [dataSource]="dataSource">
+
+          <ng-container matColumnDef="select">
+            <th mat-header-cell *matHeaderCellDef>
+              <mat-checkbox (change)="$event ? masterToggle() : null"
+                            [checked]="selection.hasValue() && isAllSelected()"
+                            [indeterminate]="selection.hasValue() && !isAllSelected()">
+              </mat-checkbox>
+            </th>
+            <td mat-cell *matCellDef="let row">
+              <mat-checkbox (click)="$event.stopPropagation()"
+                            (change)="$event ? selection.toggle(row) : null"
+                            [checked]="selection.isSelected(row)">
+              </mat-checkbox>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="points">
+            <th mat-header-cell *matHeaderCellDef> Points </th>
+            <td mat-cell *matCellDef="let element"> {{element.points}} </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+<!--        TODO: change the alignment method-->
+        <div align="right">
+          <button mat-raised-button color="accent" (click)="completeActivities()">Mark as done</button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div class="col-6" *ngIf="dataSourceCompleted != null && dataSourceCompleted.length > 0">
+    <mat-card class="bottom-spaced-card accent-border">
+      <mat-card-header>
+        <div mat-card-avatar>
+          <mat-icon matListIcon color="accent">playlist_add_check</mat-icon>
+        </div>
+        <mat-card-title>Completed</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <table mat-table [dataSource]="dataSourceCompleted">
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="points">
+            <th mat-header-cell *matHeaderCellDef> Points </th>
+            <td mat-cell *matCellDef="let element"> {{element.points}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="completedBy">
+            <th mat-header-cell *matHeaderCellDef> Completed by </th>
+            <td mat-cell *matCellDef="let element"> {{element.completedBy}} </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumnsCompleted"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumnsCompleted;"></tr>
+        </table>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

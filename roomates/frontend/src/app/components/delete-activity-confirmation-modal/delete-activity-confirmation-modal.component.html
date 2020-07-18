@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>Delete activity</h1>
+<mat-dialog-content>
+  <p>Are you sure you want to delete this activity?</p>
+  <button mat-raised-button (click)="close()">Cancel</button>
+  <button mat-raised-button color="warn" [mat-dialog-close]="true"
+          #btnFocus=matButton [autofocus]="btnFocus.focus()">Confirm
+  </button>
+</mat-dialog-content>

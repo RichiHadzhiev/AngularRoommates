@@ -1,0 +1,21 @@
+<mat-toolbar color="primary">
+  <span>Roommates</span>
+  <ng-container *ngIf="showNavigation()">
+    <span class="example-spacer"></span>
+    <button mat-button (click)="navigateTo('/')">
+      <mat-icon>home</mat-icon>
+    </button>
+    <button mat-button [matMenuTriggerFor]="menu">
+      <mat-icon>settings</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="navigateTo('settings')">Settings</button>
+      <button mat-menu-item>Logout</button>
+    </mat-menu>
+  </ng-container>
+</mat-toolbar>
+<mat-card class="container-height">
+  <router-outlet></router-outlet>
+</mat-card>
+
+
